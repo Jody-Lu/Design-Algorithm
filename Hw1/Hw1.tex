@@ -1,0 +1,118 @@
+\documentclass[a4paper,11pt,oneside]{book}
+\usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+\usepackage{CJK}
+\usepackage{CJKpunct}
+\usepackage[bf,small,center,indentafter,pagestyles]{titlesec}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[dvips]{graphicx}
+\usepackage{subfigure}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+%\newcommand{\song}{\CJKfamily{song}}
+%\newcommand{\hei}{\CJKfamily{hei}}
+%\newcommand{\kai}{\CJKfamily{kai}}
+%\newcommand{\fs}{\CJKfamily{fs}}
+
+%\linespread{1.2}
+\pagestyle{plain}
+\renewcommand{\baselinestretch}{1.38}
+\begin{document}
+
+\title{\textbf{Design and Analysis of Computer Algorithms} \\
+\textbf{Homework 1}}
+\author{\textbf{Name}: Meng-Ju Lu
+\\ \textbf{UTD ID}: 2021323210
+\\ \textbf{Email}: mxl162030@utdallas.edu}
+\maketitle
+
+\section*{Homework Exercises: Problems 9.3-7, 9.3-8}
+
+1. (Exercise 9.3-7)
+
+Algorithm
+
+(1) Find the median of set $S$ with $SELECT$ algorithm $\Rightarrow O(n)$
+
+(2) Calculate the distances $Distance$ (i.e., $abs(S[i] - median$))$\Rightarrow O(n)$
+
+(3) Find the $K^{th}$ small element $d_k$ in $Distance$ $\Rightarrow O(n)$
+
+(4) Traverse $Distance$, find elements that is smaller than $d_k$ $\Rightarrow O(n)$
+
+Time Complexity: $O(n)$ 
+
+%
+\begin{algorithm*}[h]
+\caption{\ \ \textbf{SELECT-K($S, k$)}}
+\label{selectk}
+\begin{algorithmic} [1]
+\IF{($ n$ == $k$)}
+    	\RETURN S
+\ENDIF 
+\STATE $median = SELECT($S, 1, n, n/2$)$ 
+\STATE $Distance = [], Result = []$
+\FOR{($i = 1$ to $n$)}
+    \STATE $Distance[i] = abs(S[i] - median)$
+\ENDFOR
+\STATE $d_k = SELECT(Distance, 1, n, k)$
+\FOR{($i = 1$ to $n$)}
+    \IF{($ Distance[i] \leq d_k$)}
+    	\STATE $Result[i] = S[i]$
+    \ENDIF 
+\ENDFOR
+\RETURN $Result$
+\end{algorithmic}
+\end{algorithm*}
+%
+
+2. (Exercise 9.3-8) Suppose that $X$ and $Y$ are in increasing order. The algorithm used a various of binary search which can be generalized to find the $kth$ element in two sorted arrays.
+
+Algorithm
+
+(1) Get the two median $mx$ and $my$ from $X$ and $Y$. Since $X$, $Y$ are sorted, it costs $O(1)$.
+
+(2) If $mx == my$, then return $mx$. 
+
+(3) If $mx > my$, then then median is present in one of the below two subarrays.
+
+a. From first element of $X$ to $mx$ (X[0...n/2])
+
+b. From $my$ to the last of $Y$ (Y[n/2...n])
+
+(4) If $my > mx$, then the median is present in one of the below two subarrays.
+
+a. From $mx$ to the last of $X$ (X[n/2...n])
+
+b. From first element to $my$ (Y[0...n/2])
+
+Time Complexity: O(lg(n))
+
+%
+\begin{algorithm*}[h]
+\caption{\ \ \textbf{MEDIAN($X, x_1, x_2, Y, y_1, y_2$)}}
+\label{selectk}
+\begin{algorithmic} [1]
+\STATE $mx = X[(x_1 + x_2) / 2]$  
+\STATE $my = Y[(y_1 + y_2) / 2]$
+\IF {($mx == my$)}
+    \STATE return $mx$
+\ENDIF
+\IF {($mx < my$)}
+    \STATE return $MEDIAN(X, (x_1 + x_2)/2 + 1, x2, Y, y_1, (y_1 + y_2)/2 + 1)$
+\ELSE
+    \STATE return $MEDIAN(X, x_1, (x_1 + x_2)/2, Y,  (y_1 + y_2)/2 + 1, y_2)$
+\ENDIF
+
+\end{algorithmic}
+\end{algorithm*}
+%
+
+\end{document} 
+
+
+
+
+
