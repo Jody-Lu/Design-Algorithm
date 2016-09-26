@@ -1,5 +1,5 @@
 # Number of vertices
-V = 5
+V = 7
 
 INF = 99999
 
@@ -58,11 +58,13 @@ def floydWarshall(graph):
     #printSolution(dist)
 
 if __name__ == '__main__':
-    graph = [[0, 3, 8, INF, -4],
-             [INF,0, INF, 1, 7],
-             [INF, 4, 0, INF, INF],
-             [2, INF, -5, 0, INF],
-             [INF, INF, INF, 6, 0]]
+    graph = [[0, -1, INF, 2, INF, INF, INF],
+             [INF, 0, INF, INF, -1, INF, INF],
+             [4, INF, 0, INF, -2, -1, INF],
+             [INF, INF, -2, 0, INF, 3, INF],
+             [3, INF, INF, INF, 0, INF, 2],
+             [INF, INF, INF, INF, INF, 0, 2],
+             [INF, INF, 1, INF, INF, INF, 0]]
 
     # Print the solution
     floydWarshall(graph);
